@@ -3,6 +3,7 @@ En aquest projecte trobareu el codi de com podem demanar un permís en arrencar 
 ## Temes clau 🔑
 * Manifest.permission.ACCESS_FINE_LOCATION
 * LaunchedEffect
+* rememberLauncherForActivityResult(contract = ActivityResultContracts.RequestPermission())
 * ActivityCompat.shouldShowRequestPermissionRationale
 * Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
 * ViewModel
