@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -31,7 +32,8 @@ import com.example.permissionrequest.viewmodels.PermissionViewModel
 
 
 @Composable
-fun PermissionScreen(activity: ComponentActivity) {
+fun PermissionScreen() {
+    val activity = LocalActivity.current
     val myViewModel = viewModel<PermissionViewModel>()
     val permissionStatus = myViewModel.permissionStatus.value
     var alreadyRequested by remember { mutableStateOf(false) }
@@ -42,7 +44,7 @@ fun PermissionScreen(activity: ComponentActivity) {
         val result = when {
             granted -> PermissionStatus.Granted
             ActivityCompat.shouldShowRequestPermissionRationale(
-                activity,
+                activity!!,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) -> PermissionStatus.Denied
 
@@ -84,9 +86,9 @@ fun PermissionScreen(activity: ComponentActivity) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Button(onClick = {
                     val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                        data = Uri.fromParts("package", activity.packageName, null)
+                        data = Uri.fromParts("package", activity!!.packageName, null)
                     }
-                    activity.startActivity(intent)
+                    activity!!.startActivity(intent)
                 }) {
                     Text("Go to settings")
                 }
